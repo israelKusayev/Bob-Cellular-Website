@@ -18,16 +18,10 @@ class CustomerInfo extends Component {
         this.setState({ lineInfo });
       })
       .catch(() => {
-        this.setState({ error: 'Customer not found' });
+        this.setState({ lineInfo: null });
       });
   };
 
-
-  renderLineInfo =()=>{
-    if (this.state.lineInfo) {
-      return (<LineInfo info={this.state.lineInfo} ></LineInfo>)
-    }
-  }
   render() {
     return (
       <React.Fragment>
@@ -47,8 +41,7 @@ class CustomerInfo extends Component {
             </select>
           </form>
         </div>
-        {/* {this.renderLineInfo()} */}
-        {this.state.lineInfo &&<LineInfo info={this.state.lineInfo} ></LineInfo>}
+        {this.state.lineInfo && <LineInfo info={this.state.lineInfo} />}
       </React.Fragment>
     );
   }
