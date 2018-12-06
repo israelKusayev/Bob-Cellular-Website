@@ -1,12 +1,13 @@
 import React from 'react';
- 
+
 const LineInfo = ({ info }) => {
   // if(!info){return null}
   return (
     <React.Fragment>
-      <div className="row mt-5">
+      <div className="row mt-4">
         <div className="col-md-3" />
         <div className="col-md-6">
+          <h3>Your line information for the last month</h3>
           <div className="mb-1">
             <b> Total Line Price: </b>
             {info.TotalLinePrice}
@@ -21,12 +22,13 @@ const LineInfo = ({ info }) => {
           <hr />
           <h4>Recommendation</h4>
           <div>
-            {info.RecommendPackages&&info.RecommendPackages.map((p) => (
-              <div>
-                Package Name: {p.PackageName} Price
-                {p.TotalPrice} 
-              </div>
-            ))}
+            {info.RecommendPackages &&
+              info.RecommendPackages.map((p) => (
+                <div>
+                  Package Name: {p.PackageName} <pre>Price: </pre>
+                  {p.TotalPrice}
+                </div>
+              ))}
           </div>
         </div>
       </div>

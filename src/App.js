@@ -22,7 +22,6 @@ class App extends Component {
       .then((data) => {
         const customer = JSON.parse(data);
         this.setState({ customer });
-        debugger;
         this.props.history.push('/customer-info');
       })
       .catch(() => {

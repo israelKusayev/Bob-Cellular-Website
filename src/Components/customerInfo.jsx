@@ -3,8 +3,10 @@ import LineInfo from './lineInfo';
 
 class CustomerInfo extends Component {
   state = {
-    lineInfo: null
+    lineInfo: null,
+    lineInfoError: ''
   };
+
   handleLineSelect = async ({ target }) => {
     await fetch(
       'http://localhost:54377/api/customerWebsite/getLineInfo/' + target.value
@@ -15,10 +17,13 @@ class CustomerInfo extends Component {
       .then((data) => {
         const lineInfo = JSON.parse(data);
         debugger;
-        this.setState({ lineInfo });
+        this.setState({ lineInfo, lineInfoError: '' });
       })
       .catch(() => {
-        this.setState({ lineInfo: null });
+        this.setState({
+          lineInfo: null,
+          lineInfoError: 'This line has no information for this month'
+        });
       });
   };
 
@@ -35,10 +40,18 @@ class CustomerInfo extends Component {
               className="form-control"
               id="selectline"
             >
+              <option value="" disabled={true} selected={true}>
+                Choose one
+              </option>
               {this.props.lines.map((l) => (
                 <option key={l.LineId}>{l.LineNumber}</option>
               ))}
             </select>
+            {this.state.lineInfoError && (
+              <div className="alert alert-danger">
+                {this.state.lineInfoError}
+              </div>
+            )}
           </form>
         </div>
         {this.state.lineInfo && <LineInfo info={this.state.lineInfo} />}
