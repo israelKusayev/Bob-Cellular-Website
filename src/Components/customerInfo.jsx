@@ -3,32 +3,9 @@ import LineInfo from './lineInfo';
 
 class CustomerInfo extends Component {
   state = {
-    lineInfo: {
-      TotalMinutes: '10',
-      TotalSms: '5',
-      TotalMinutesTopNumber: 8,
-      TotalMinutesTop3Numbers: 4,
-      TotalMinutesWithFamily: 10,
-      TotalLinePrice: 20,
-      RecommendPackages: [
-        {
-          PackageName: 'children',
-          PackagePrice: 10
-        },
-        {
-          PackageName: 'moms',
-          PackagePrice: 100
-        }
-      ]
-    }
+    lineInfo: {}
   };
   handleLineSelect = async ({ target }) => {
-    if (target.value == 2) {
-      const { lineInfo } = this.state;
-      debugger;
-      lineInfo.TotalMinutes = 3000;
-      this.setState({ lineInfo });
-    }
     await fetch(
       'http://localhost:54377/api/customerWebsite/getLineInfo/' + target.value
     )

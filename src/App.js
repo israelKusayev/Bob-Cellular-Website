@@ -48,13 +48,7 @@ class App extends Component {
           <Route
             path="/customer-info"
             render={(props) => (
-              <CustomerInfo
-                {...props}
-                lines={[
-                  { LineId: 1, LineNumber: 2 },
-                  { LineId: 3, LineNumber: 4 }
-                ]}
-              />
+              <CustomerInfo {...props} lines={this.state.customer.Lines} />
             )}
           />
           <Route path="/not-found" component={NotFound} />
