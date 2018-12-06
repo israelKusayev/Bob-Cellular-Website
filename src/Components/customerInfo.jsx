@@ -3,7 +3,7 @@ import LineInfo from './lineInfo';
 
 class CustomerInfo extends Component {
   state = {
-    lineInfo: {}
+    lineInfo: null
   };
   handleLineSelect = async ({ target }) => {
     await fetch(
@@ -14,12 +14,20 @@ class CustomerInfo extends Component {
       })
       .then((data) => {
         const lineInfo = JSON.parse(data);
+        debugger;
         this.setState({ lineInfo });
       })
       .catch(() => {
         this.setState({ error: 'Customer not found' });
       });
   };
+
+
+  renderLineInfo =()=>{
+    if (this.state.lineInfo) {
+      return (<LineInfo info={this.state.lineInfo} ></LineInfo>)
+    }
+  }
   render() {
     return (
       <React.Fragment>
@@ -39,7 +47,8 @@ class CustomerInfo extends Component {
             </select>
           </form>
         </div>
-        <LineInfo info={this.state.lineInfo} />
+        {/* {this.renderLineInfo()} */}
+        {this.state.lineInfo &&<LineInfo info={this.state.lineInfo} ></LineInfo>}
       </React.Fragment>
     );
   }
