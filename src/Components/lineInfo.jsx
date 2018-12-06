@@ -1,5 +1,5 @@
 import React from 'react';
-
+ 
 const LineInfo = ({ info }) => {
   // if(!info){return null}
   return (
@@ -24,7 +24,7 @@ const LineInfo = ({ info }) => {
             {info.RecommendPackages&&info.RecommendPackages.map((p) => (
               <div>
                 Package Name: {p.PackageName} Price
-                {p.PackagePrice}
+                {p.TotalPrice} 
               </div>
             ))}
           </div>
