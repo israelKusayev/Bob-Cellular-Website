@@ -1,28 +1,70 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Login from './Components/Login';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
+import CustomerInfo from './Components/customerInfo';
+import NotFound from './Components/notFound';
 
 class App extends Component {
+  state = {
+    name: 'israel',
+    error: '',
+    customer: {}
+  };
+  getCustomerLines = async (identityCard) => {
+    await fetch(
+      'http://localhost:54377/api/customerWebsite/getCustomerLines/' +
+        identityCard
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        const customer = JSON.parse(data);
+        this.setState({ customer });
+        this.props.history.push('/customer-info');
+      })
+      .catch(() => {
+        this.setState({ error: 'Customer not found' });
+      });
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <main className="container">
+        <h1 className="text-center">Bob Cellular</h1>
+        <hr />
+        <Switch>
+          <Route
+            path="/login"
+            render={(props) => (
+              <Login
+                {...props}
+                error={this.state.error}
+                onLogin={this.getCustomerLines}
+              />
+            )}
+          />
+          <Route
+            path="/customer-info"
+            render={(props) => (
+              <CustomerInfo
+                {...props}
+                lines={[
+                  { LineId: 1, LineNumber: 2 },
+                  { LineId: 3, LineNumber: 4 }
+                ]}
+              />
+            )}
+          />
+          <Route path="/not-found" component={NotFound} />
+
+          <Redirect from="/" exact={true} to="/login" />
+          <Redirect to="/not-found" />
+        </Switch>
+      </main>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
