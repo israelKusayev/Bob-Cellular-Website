@@ -12,21 +12,31 @@ const LineInfo = ({ info }) => {
             <b> Total Line Price: </b>
             {info.TotalLinePrice}
           </div>
-          <div>Total Minute: {info.TotalMinutes}</div>
-          <div>Total Sms: {info.TotalSms}</div>
-          <div>Total Minute of Top Number: {info.TotalMinutesTopNumber}</div>
           <div>
-            Total Minute of Top 3 Number: {info.TotalMinutesTop3Numbers}
+            <b>Total Minute:</b> {info.TotalMinutes}
           </div>
-          <div>Total Minute With Family: {info.TotalMinutesWithFamily}</div>
+          <div>
+            <b> Total Sms:</b> {info.TotalSms}
+          </div>
+          <div>
+            <b> Total Minute of Top Number:</b> {info.TotalMinutesTopNumber}
+          </div>
+          <div>
+            <b> Total Minute of Top 3 Number: </b>
+            {info.TotalMinutesTop3Numbers}
+          </div>
+          <div>
+            <b> Total Minute With Family:</b> {info.TotalMinutesWithFamily}
+          </div>
           <hr />
           <h4>Recommendation</h4>
           <div>
             {info.RecommendPackages &&
               info.RecommendPackages.map((p) => (
                 <div>
-                  Package Name: {p.PackageName} <pre>Price: </pre>
-                  {p.TotalPrice}
+                  <b> Package Name:</b>
+                  <i> {p.PackageName} </i>, <b> Price:</b>
+                  <i> {p.TotalPrice}</i>
                 </div>
               ))}
           </div>
