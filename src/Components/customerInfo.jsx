@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import LineInfo from './lineInfo';
+import { connect } from 'react-redux';
 
 class CustomerInfo extends Component {
-  state = {
-    lineInfo: null,
-    lineInfoError: ''
-  };
-
   componentWillMount() {
     if (!this.props.lines) {
       this.props.history.replace('/login');
     }
   }
+
+  constructor(props) {
+    debugger;
+    super(props);
+  }
+
+  state = { lineInfoError: '', lineInfo: null };
 
   handleLineSelect = async ({ target }) => {
     await fetch(
@@ -22,7 +25,6 @@ class CustomerInfo extends Component {
       })
       .then((data) => {
         const lineInfo = JSON.parse(data);
-        debugger;
         this.setState({ lineInfo, lineInfoError: '' });
       })
       .catch(() => {
@@ -34,6 +36,8 @@ class CustomerInfo extends Component {
   };
 
   render() {
+    console.log('customer lines', this.props.lines);
+
     if (this.props.lines) {
       return (
         <React.Fragment>
@@ -69,4 +73,11 @@ class CustomerInfo extends Component {
   }
 }
 
-export default CustomerInfo;
+const mapStatetoProps = (state) => {
+  debugger;
+  return {
+    lines: state.customer.Lines
+  };
+};
+
+export default connect(mapStatetoProps)(CustomerInfo);

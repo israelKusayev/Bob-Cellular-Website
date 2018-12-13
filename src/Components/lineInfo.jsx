@@ -1,7 +1,6 @@
 import React from 'react';
 
 const LineInfo = ({ info }) => {
-  // if(!info){return null}
   return (
     <React.Fragment>
       <div className="row mt-4">
